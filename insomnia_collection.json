@@ -1,0 +1,250 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-09T11:40:00.000Z",
+  "__export_source": "insomnia.desktop.app",
+  "resources": [
+    {
+      "_id": "wrk_banco_questoes",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Banco de Questões",
+      "description": "API de estudo e gerenciamento de matérias e questões",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_banco_questoes",
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:3333/api"
+      },
+      "dataPropertyOrder": {
+        "&": ["baseUrl"]
+      },
+      "color": null,
+      "isPrivate": false
+    },
+    {
+      "_id": "fld_geral",
+      "_type": "request_group",
+      "parentId": "wrk_banco_questoes",
+      "name": "Geral"
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "parentId": "fld_geral",
+      "name": "Healthcheck",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/health",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "req_seed",
+      "_type": "request",
+      "parentId": "fld_geral",
+      "name": "Popular Banco (Seed de Exemplo)",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/seed",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "fld_materias",
+      "_type": "request_group",
+      "parentId": "wrk_banco_questoes",
+      "name": "Matérias (Subjects)"
+    },
+    {
+      "_id": "req_list_subjects",
+      "_type": "request",
+      "parentId": "fld_materias",
+      "name": "Listar Matérias",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/subjects",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "req_create_subject",
+      "_type": "request",
+      "parentId": "fld_materias",
+      "name": "Criar Matéria",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/subjects",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Sistemas Operacionais\",\n  \"color\": \"#3b82f6\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_update_subject",
+      "_type": "request",
+      "parentId": "fld_materias",
+      "name": "Atualizar Matéria",
+      "method": "PUT",
+      "url": "{{ _.baseUrl }}/subjects/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Sistemas Operacionais Avançados\",\n  \"color\": \"#10b981\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_delete_subject",
+      "_type": "request",
+      "parentId": "fld_materias",
+      "name": "Excluir Matéria",
+      "method": "DELETE",
+      "url": "{{ _.baseUrl }}/subjects/1",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "fld_questoes",
+      "_type": "request_group",
+      "parentId": "wrk_banco_questoes",
+      "name": "Questões (Questions)"
+    },
+    {
+      "_id": "req_list_questions",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Listar Todas as Questões",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/questions",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "req_list_questions_by_subject",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Listar Questões por Matéria",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/questions",
+      "body": {},
+      "parameters": [
+        {
+          "name": "subjectId",
+          "value": "1"
+        }
+      ],
+      "headers": []
+    },
+    {
+      "_id": "req_create_question_fechada",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Criar Questão Fechada",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/questions",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"subjectId\": \"1\",\n  \"type\": \"fechada\",\n  \"text\": \"O que é escalonamento Round-Robin?\",\n  \"options\": [\n    \"Um algoritmo preemptivo por fatia de tempo (quantum)\",\n    \"Um algoritmo não-preemptivo que executa o processo mais curto primeiro\",\n    \"Uma técnica de memória virtual\",\n    \"Um protocolo de rede\"\n  ],\n  \"correctIndex\": 0\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_question_aberta",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Criar Questão Aberta",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/questions",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"subjectId\": \"1\",\n  \"type\": \"aberta\",\n  \"text\": \"Explique a diferença entre processo e thread.\",\n  \"expectedAnswer\": \"Um processo possui seu próprio espaço de endereçamento de memória independente, enquanto threads compartilham o mesmo espaço de memória do processo pai.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_update_question",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Atualizar Questão",
+      "method": "PUT",
+      "url": "{{ _.baseUrl }}/questions/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"text\": \"Enunciado atualizado da questão...\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_delete_question",
+      "_type": "request",
+      "parentId": "fld_questoes",
+      "name": "Excluir Questão",
+      "method": "DELETE",
+      "url": "{{ _.baseUrl }}/questions/1",
+      "body": {},
+      "parameters": [],
+      "headers": []
+    },
+    {
+      "_id": "fld_simulado",
+      "_type": "request_group",
+      "parentId": "wrk_banco_questoes",
+      "name": "Simulado / Prova (Exam)"
+    },
+    {
+      "_id": "req_exam_generate",
+      "_type": "request",
+      "parentId": "fld_simulado",
+      "name": "Gerar Prova",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/exam/generate",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"subjectId\": \"all\",\n  \"typeFilter\": \"todas\",\n  \"count\": 5\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
+  ]
+}
